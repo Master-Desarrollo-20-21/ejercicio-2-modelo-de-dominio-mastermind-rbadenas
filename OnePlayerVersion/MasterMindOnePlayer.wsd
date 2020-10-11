@@ -2,9 +2,9 @@
 
 MasterMind *-- Board
 MasterMind *-- CodeBreaker
-MasterMind *-- SecretCode
 
-Board o-- "0..12" Attempt
+Board o-- "0..10" Attempt
+Board *-- SecretCode
 
 CodeBreaker --> Attempt
 CodeBreaker --> ValidationResult
@@ -13,7 +13,8 @@ Score --> ValidationResult
 
 Code <|-- Attempt
 Code <|-- SecretCode
-Code *-- "1x5" Color
+Code *-- "4" Position
+Position o-- Color
 
 Attempt *-- ValidationResult
 Attempt --> AttemptValidator
@@ -24,13 +25,13 @@ AttemptValidator --> SecretCode
 
 
 
-Color <|-- ColorX : 8Colors
+Color <|-- ColorX : 6Colors
 
-ValidationResult o-- "1x5" ValidationToken
+ValidationResult o-- "1x4" ValidationToken
 ValidationToken <|-- RightColorAndPosition
 ValidationToken <|-- WrongPosition
 ValidationToken <|-- WrongColor
 
-Randomizer --> ColorX
+Randomizer --> Color
 
 @enduml
