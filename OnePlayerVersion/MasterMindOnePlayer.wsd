@@ -1,0 +1,36 @@
+@startuml
+
+MasterMind *-- Board
+MasterMind *-- CodeBreaker
+MasterMind *-- SecretCode
+
+Board o-- "0..12" Attempt
+
+CodeBreaker --> Attempt
+CodeBreaker --> ValidationResult
+CodeBreaker *-- Score
+Score --> ValidationResult
+
+Code <|-- Attempt
+Code <|-- SecretCode
+Code *-- "1x5" Color
+
+Attempt *-- ValidationResult
+Attempt --> AttemptValidator
+
+SecretCode --> Randomizer
+AttemptValidator --> ValidationResult
+AttemptValidator --> SecretCode
+
+
+
+Color <|-- ColorX : 8Colors
+
+ValidationResult o-- "1x5" ValidationToken
+ValidationToken <|-- RightColorAndPosition
+ValidationToken <|-- WrongPosition
+ValidationToken <|-- WrongColor
+
+Randomizer --> ColorX
+
+@enduml
