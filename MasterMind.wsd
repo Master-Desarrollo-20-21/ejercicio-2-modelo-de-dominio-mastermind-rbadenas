@@ -1,0 +1,48 @@
+@startuml
+
+MasterMind *--> Turn
+MasterMind *--> "2" Player
+MasterMind *--> Board
+
+Turn o--> CodeMaker
+Turn o--> CodeBreaker
+
+Player <|-- CodeMaker
+Player <|-- CodeBreaker
+
+Code <|-- SecretCode
+Code <|-- Attempt
+Code *--> "4" Token
+
+
+Token *--> Color
+Token *--> Position
+
+Board *--> SecretCode 
+Board o--> "0..10" Attempt 
+
+CodeMaker --> SecretCode
+CodeBreaker --> Attempt
+
+Attempt --> AttemptResult
+
+CodeMaker ..> "qualifies the attempt" AttemptResult
+
+AttemptResult *--> "0..4" ValidationToken
+ValidationToken <|-- BlackToken
+ValidationToken <|-- WhiteToken
+
+AttemptResult <|-- WinnerResult
+WinnerResult *--> "4" BlackToken
+
+BlackToken --> Token
+WhiteToken --> Color
+
+Color <|-- Red
+Color <|-- Green
+Color <|-- Blue
+Color <|-- Yellow
+Color <|-- Pink
+Color <|-- Cyan
+
+@enduml
